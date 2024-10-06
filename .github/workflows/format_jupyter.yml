@@ -1,0 +1,21 @@
+name: Jupyter Notebook Formatting
+
+on: [push, pull_request]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.x
+
+      - name: Install black-nb
+        run: pip install black-nb
+
+      - name: Run black-nb on notebooks
+        run: black-nb ./**/*.ipynb
