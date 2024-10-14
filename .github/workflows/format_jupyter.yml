@@ -12,10 +12,20 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: 3.x
+          python-version: 3.11
 
       - name: Install black-nb
-        run: pip install black-nb
+        run: pip install black-nb==0.4  # You can specify a stable version
+
+      - name: Check for Jupyter Notebooks
+        id: notebooks-check
+        run: |
+          if [ -z "$(find . -name '*.ipynb')" ]; then
+            echo "No Jupyter notebooks found."
+            exit 0
+          fi
 
       - name: Run black-nb on notebooks
-        run: black-nb ./**/*.ipynb
+        if: steps.notebooks-check.outcome == 'success'
+        run: |
+          black-nb --root ./**/*.ipynb  # Pass root explicitly
