@@ -14,8 +14,10 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: Install black-nb
-        run: pip install black-nb==0.3.0
+      - name: Install dependencies
+        run: |
+          pip install black-nb==0.3.0
+          pip install regex  # Install the missing dependency
 
       - name: Check for Jupyter Notebooks
         id: notebooks-check
