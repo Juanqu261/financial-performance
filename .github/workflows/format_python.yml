@@ -1,4 +1,4 @@
-name: Jupyter Notebook Formatting
+name: Python Code Formatting
 
 on: [push, pull_request]
 
@@ -14,18 +14,8 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: Install black-nb
-        run: pip install black-nb==0.3.1
+      - name: Install autopep8
+        run: pip install autopep8
 
-      - name: Check for Jupyter Notebooks
-        id: notebooks-check
-        run: |
-          if [ -z "$(find . -name '*.ipynb')" ]; then
-            echo "No Jupyter notebooks found."
-            exit 0
-          fi
-
-      - name: Run black-nb on notebooks
-        if: steps.notebooks-check.outcome == 'success'
-        run: |
-          black-nb ./**/*.ipynb
+      - name: Run autopep8
+        run: autopep8 --in-place --recursive .
