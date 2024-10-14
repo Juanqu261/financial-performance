@@ -15,7 +15,7 @@ jobs:
           python-version: 3.11
 
       - name: Install black-nb
-        run: pip install black-nb
+        run: pip install black-nb==0.3.1
 
       - name: Check for Jupyter Notebooks
         id: notebooks-check
@@ -28,4 +28,4 @@ jobs:
       - name: Run black-nb on notebooks
         if: steps.notebooks-check.outcome == 'success'
         run: |
-          black-nb .
+          black-nb ./**/*.ipynb
